@@ -48,14 +48,4 @@ public class GeneralInterceptorAspect {
             }
         }
     }
-
-    @Before(value = "execution(* com.bws.apigateway.rest.controller..*(..)) ")
-    public void beforceServiceCall (JoinPoint joinPoint){
-        Object [] parameters = joinPoint.getArgs();
-        for(Object param : parameters){
-            if(param instanceof BaseRequest){
-                ((BaseRequest) param).setToken(request.getHeader("Authorization"));
-            }
-        }
-    }
 }

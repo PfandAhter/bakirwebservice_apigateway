@@ -2,6 +2,7 @@ package com.bws.apigateway.rest.controller;
 
 import com.bws.apigateway.api.request.BaseRequest;
 import com.bws.apigateway.api.request.GetCategoryListRequest;
+import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.model.dto.CategoryDTO;
 import com.bws.apigateway.model.dto.ProductDTO;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
 //TODO BURAYA BI BAK IKI TANE AYNI UCU KULLANABILIYORMUYUZ DIYE ...
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin
 
 public class ProductController implements ProductRestServiceApi {
 
@@ -44,4 +48,6 @@ public class ProductController implements ProductRestServiceApi {
     public ResponseEntity<List<CategoryDTO>> getCategoryList(BaseRequest baseRequest, HttpServletRequest request, BindingResult bindingResult){
         return ResponseEntity.ok(categoryServiceCall.getCategoryListResponse(baseRequest));
     }
+
+
 }

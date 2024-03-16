@@ -23,38 +23,54 @@ app:
   routes:
     restTemplate:
       requestMicroservice:
-        tokenservice:
+        tokenService:
 
-        paymentservice:
+        paymentService:
+          addBalance: http://localhost:8078/paymentservice/addbalance
+          getBalance: http://localhost:8078/paymentservice/getbalance
+          deleteOrderByProductCode: http://localhost:8078/paymentservice/deleteorderbyproductcode
+          getOrderList: http://localhost:8078/paymentservice/getorderlist
 
-        userservice:
+        userService:
 
-        productservice:
+        productService:
+          createOrderList: http://localhost:8083/productservice/product/createorder
+          getProductList: http://localhost:8083/productservice/product/productlist
+          getCategoryList: http://localhost:8083/categoryservice/category/categorylist
+          getProductListByCategoryName: http://localhost:8083/productservice/product/categorylistbycategoryname
 
         authService:
+          registerUser: http://localhost:8081/auth/register
           authLogin: http://localhost:8081/auth/login
-  routescontroller:
-    requestmapping:
+  presented:
+    routescontroller:
+      requestmapping:
+        locked:
+          indexServiceController: /index
+        notlocked:
+          authServiceController: /notlocked
+          productServiceController: /notlocked
       locked:
-        indexServiceController: /index
+        orderList:
+          deleteOrderList: /deleteorderbyproductcode
+          getOrderList: /getorderlist
+          addOrderList: /product/buywithproductcode
+        product:
+          #buyWithProductCode: /product/buywithproductcode
+        balance:
+          addBalance: /balance/add
+          getBalance: /balance/get
       notlocked:
-        authServiceController: /notlocked
-        productServiceController: /notlocked
-    locked:
-      balance:
-        addBalance: /balance/add
-        getBalance: /balance/get
-    notlocked:
-      product:
-        getProductList: /product/productlist
-        getProductListByCategoryname: /product/productlistbycategoryname
-      category:
-        getCategoryList: /product/categorylist
-      login:
-        authUser: /login
-        registerUser: /register
+        product:
+          getProductList: /product/productlist
+          getProductListByCategoryname: /product/productlistbycategoryname
+        category:
+          getCategoryList: /product/categorylist
+        login:
+          authUser: /login
+          registerUser: /register
   jwtSecret: S5arZ8qX8Anvk60LIHdGKZiGyLAyxW+LU1Xw2H4R6Uu1ndlUNPqhpVuKtFsfFvA+
   jwtCryptoSecret : sBnlg0BGosgPMQju
-#logging:
-#  level:
-#    org.springframework: DEBUG
+logging:
+  level:
+    org.springframework: DEBUG

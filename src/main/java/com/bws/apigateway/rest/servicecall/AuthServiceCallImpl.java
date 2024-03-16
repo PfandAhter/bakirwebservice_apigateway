@@ -4,13 +4,17 @@ import com.bws.apigateway.api.request.AuthUserRequest;
 import com.bws.apigateway.api.request.UserAddRequest;
 import com.bws.apigateway.api.response.AuthUserResponse;
 import com.bws.apigateway.api.response.BaseResponse;
-import com.bws.apigateway.model.constants.PropertyConstants;
+import com.bws.apigateway.model.entity.LogApiGateway;
+import com.bws.apigateway.repository.LogApiGatewayRepository;
 import com.bws.apigateway.rest.servicecall.interfaces.IAuthServiceCall;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import static com.bws.apigateway.model.constants.PropertyConstants.REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN;
+import static com.bws.apigateway.model.constants.PropertyConstants.REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_REGISTER;
 
 @Service
 @RequiredArgsConstructor
@@ -19,19 +23,34 @@ import org.springframework.web.client.RestTemplate;
 public class AuthServiceCallImpl implements IAuthServiceCall {
 
     private final RestTemplate restTemplate;
+    private final LogApiGatewayRepository logApiGatewayRepository;
+
+    @Value(REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN)
+    private String authUserPath;
 
     @Override
     public AuthUserResponse authUserServiceCall(AuthUserRequest request){
-
-        System.out.println(PropertyConstants.REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN);
-        return restTemplate.postForObject( PropertyConstants.REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN, request, AuthUserResponse.class);
-
+        logInDataBase(request.getClass().getName(),AuthUserResponse.class.getName());
+        return restTemplate.postForObject(authUserPath, request, AuthUserResponse.class);
     }
+
+    @Value(REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_REGISTER)
+    private String registerUserPath;
 
     @Override
     public BaseResponse userRegister(UserAddRequest request){
-        return restTemplate.postForObject("http://localhost:8081/auth/register", request, BaseResponse.class);
+        logInDataBase(request.getClass().getName(),BaseResponse.class.getName());
+        return restTemplate.postForObject(registerUserPath, request, BaseResponse.class);
 
+    }
+
+    private void logInDataBase(String baseRequest, String responseType){
+        logApiGatewayRepository.save(LogApiGateway.builder().fetchedMicroservice(
+                "AuthService")
+                .requestType(baseRequest.substring(31,baseRequest.length()).toString())
+                .error_code(0000L)
+                .successfully(1)
+                .responseType(responseType).build());
     }
 
 }

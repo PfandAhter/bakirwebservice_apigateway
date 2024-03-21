@@ -1,5 +1,6 @@
 package com.bws.apigateway.rest.servicecall;
 
+import com.bws.apigateway.api.client.AuthServiceClient;
 import com.bws.apigateway.api.request.AuthUserRequest;
 import com.bws.apigateway.api.request.UserAddRequest;
 import com.bws.apigateway.api.response.AuthUserResponse;
@@ -25,13 +26,16 @@ public class AuthServiceCallImpl implements IAuthServiceCall {
     private final RestTemplate restTemplate;
     private final LogApiGatewayRepository logApiGatewayRepository;
 
+    private final AuthServiceClient authServiceClient;
+
     @Value(REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN)
     private String authUserPath;
 
     @Override
     public AuthUserResponse authUserServiceCall(AuthUserRequest request){
         logInDataBase(request.getClass().getName(),AuthUserResponse.class.getName());
-        return restTemplate.postForObject(authUserPath, request, AuthUserResponse.class);
+        return authServiceClient.loginRequest(request);
+//        restTemplate.postForObject(authUserPath, request, AuthUserResponse.class);
     }
 
     @Value(REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_REGISTER)
@@ -40,7 +44,8 @@ public class AuthServiceCallImpl implements IAuthServiceCall {
     @Override
     public BaseResponse userRegister(UserAddRequest request){
         logInDataBase(request.getClass().getName(),BaseResponse.class.getName());
-        return restTemplate.postForObject(registerUserPath, request, BaseResponse.class);
+        return authServiceClient.registerReqeust(request);
+//        return restTemplate.postForObject(registerUserPath, request, BaseResponse.class);
 
     }
 

@@ -19,6 +19,17 @@ spring:
     open-in-view: false
   main:
     banner-mode: off
+
+client:
+  feign:
+    user-service:
+      path: http://localhost:8081/auth
+      login: /login
+      register: /register
+
+
+
+
 app:
   routes:
     restTemplate:

@@ -21,9 +21,9 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
-    private Long user_id;
+    private String userId;
 
     @Column(name = "username")
     private String username;
@@ -45,6 +45,9 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Balance> balance;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

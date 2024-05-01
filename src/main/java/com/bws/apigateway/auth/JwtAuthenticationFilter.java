@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
@@ -31,9 +32,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        //TODO CHECK HERE SHOULDNTOFILTER FOR NOTLOCKED PATHS
-        //path.equals("notlocked/**")
-        return path.startsWith("/notlocked");
+
+        ArrayList<String> pathList = new ArrayList<>();
+        pathList.add("/auth/login");
+        pathList.add("/auth/register");
+        pathList.add("/user/activate");
+        pathList.add("/stock/category/list");
+        pathList.add("/stock/product/list");
+        boolean check = false;
+
+        for(int i = 0; i <pathList.size(); i++){
+            check = path.startsWith(pathList.get(i));
+            if(check){
+                break;
+            }
+        }
+        if(path.startsWith("/stock/product/add") || path.startsWith("/stock/category/add")){
+            check = false;
+        }
+
+        return check;
     }
 
     @Override
@@ -47,6 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            response.getStatus();
             filterChain.doFilter(request, response);
             return;
         }
@@ -60,6 +79,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        response.getStatus();
 
         //fetch :almak , gidip getirmek
 
@@ -75,6 +95,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
+
         filterChain.doFilter(request, response);
     }
 }

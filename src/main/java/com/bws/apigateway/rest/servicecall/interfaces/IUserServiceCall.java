@@ -4,11 +4,9 @@ import com.bws.apigateway.api.request.AddBalanceRequest;
 import com.bws.apigateway.api.request.BaseRequest;
 import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.api.response.GetBalanceResponse;
-import com.bws.apigateway.exceptions.ServiceUnavailableException;
 
-public interface IIndexServiceCall {
+public interface IUserServiceCall {
+    GetBalanceResponse getBalanceRequest (BaseRequest request);
 
-    BaseResponse addBalanceServiceCall (AddBalanceRequest request);
-
-    GetBalanceResponse getBalanceServiceCall(BaseRequest request);
+    BaseResponse addBalanceRequest (AddBalanceRequest request);
 }

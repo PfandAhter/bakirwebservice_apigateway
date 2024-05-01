@@ -22,66 +22,104 @@ spring:
 
 client:
   feign:
+    microServiceRegister-service:
+      path: http://localhost:8090
+      ready: /registerservice/ready
+      stopped: /registerservice/stopped
+      dashboard: /microservices/dashboard
+
     user-service:
+      path: http://localhost:8082/user
+      addBalance: /balance/addbalance
+      getBalance: /balance/getbalance
+      addAddressInfo: /address/add
+      emailValidate: /activate
+      activateSellerByAdmin: /activateseller
+      getSellers: /seller/get
+
+    payment-service:
+      path: http://localhost:8078/paymentservice
+      cart:
+        buyItemsInCart: /buyitemsincart
+        addItemInCart: /additemincart
+        getItemListInCart: /getitemlistincart
+        queryByTrackingNumber: /querybytrackingnumber
+
+    auth-service:
       path: http://localhost:8081/auth
       login: /login
       register: /register
+      changePassword: /changepassword
+      logoutUser: /logout
+      registerSellerRequest: /registerseller
 
+    stock-service:
+      path: http://localhost:8083/stock-service
+      company:
+        addCompany: /company/add
 
+      category:
+        listCategory: /category/list
+        addCategory: /category/add
+        updateCategory: /category/update
 
+      product:
+        getProduct: /product/get
+        listProduct: /product/list
+        addProduct: /product/add
+        updateProduct: /product/update
 
 app:
-  routes:
-    restTemplate:
-      requestMicroservice:
-        tokenService:
+  routesController:
+    controllers:
+      secure:
+        userServiceController: /user
+        paymentServiceController: /payment
+      notSecure:
+        stockServiceController: /stock
+        authServiceController: /auth
 
-        paymentService:
-          addBalance: http://localhost:8078/paymentservice/addbalance
-          getBalance: http://localhost:8078/paymentservice/getbalance
-          deleteOrderByProductCode: http://localhost:8078/paymentservice/deleteorderbyproductcode
-          getOrderList: http://localhost:8078/paymentservice/getorderlist
+    requestMapping:
+      secure:
+        auth-service:
+          changePassword: /changepassword
+          logoutUser: /logout
 
-        userService:
+        stock-service:
+          addCategory: /category/add
+          updateCategory: /category/update
+          addProduct:  /product/add
+          updateProduct: /product/update
+          addCompany: /company/add
 
-        productService:
-          createOrderList: http://localhost:8083/productservice/product/createorder
-          getProductList: http://localhost:8083/productservice/product/productlist
-          getCategoryList: http://localhost:8083/categoryservice/category/categorylist
-          getProductListByCategoryName: http://localhost:8083/productservice/product/categorylistbycategoryname
-
-        authService:
-          registerUser: http://localhost:8081/auth/register
-          authLogin: http://localhost:8081/auth/login
-  presented:
-    routescontroller:
-      requestmapping:
-        locked:
-          indexServiceController: /index
-        notlocked:
-          authServiceController: /notlocked
-          productServiceController: /notlocked
-      locked:
-        orderList:
+        payment-service:
+          queryByTrackingNumber: /querybytrackingnumber
+          addOrderList: /buywithproductcode
           deleteOrderList: /deleteorderbyproductcode
           getOrderList: /getorderlist
-          addOrderList: /product/buywithproductcode
-        product:
-          #buyWithProductCode: /product/buywithproductcode
-        balance:
+          buyItemsInCart: /buyitemsincart
+
+        user-service:
           addBalance: /balance/add
           getBalance: /balance/get
-      notlocked:
-        product:
-          getProductList: /product/productlist
-          getProductListByCategoryname: /product/productlistbycategoryname
-        category:
-          getCategoryList: /product/categorylist
-        login:
+          addAddressInfo: /address/add
+          userActivate: /activate
+          sellerActivateByAdmin: /seller/activate
+          getSellers: /seller/get
+
+      notSecure:
+        stock-service:
+          getProductByProductId: /product/getproduct
+          getProductList: /product/list
+          getCategoryList: /category/list
+
+        auth-service:
           authUser: /login
           registerUser: /register
+          registerSeller: /registerseller
+
   jwtSecret: S5arZ8qX8Anvk60LIHdGKZiGyLAyxW+LU1Xw2H4R6Uu1ndlUNPqhpVuKtFsfFvA+
-  jwtCryptoSecret : sBnlg0BGosgPMQju
+  jwtCryptoSecret: sBnlg0BGosgPMQju
 logging:
   level:
     org.springframework: DEBUG

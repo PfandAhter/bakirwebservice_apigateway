@@ -14,9 +14,8 @@ import lombok.*;
 public class LogApiGateway {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")
-    private Long log_id;
+    private String logId;
 
     @Column(name = "fetched_microservice")
     private String fetchedMicroservice;

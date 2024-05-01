@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ErrorCodeRepository extends JpaRepository<ErrorCodes,Long> {
+
     ErrorCodes findErrorByError (String errorCode);
 
 }

@@ -1,55 +1,64 @@
 package com.bws.apigateway.model.constants;
 
 public class PropertyConstants {
-    //MICROSERVICES PATHS
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_LOGIN = "${app.routes.restTemplate.requestMicroservice.authService.authLogin}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_AUTH_SERVICE_AUTH_REGISTER = "${app.routes.restTemplate.requestMicroservice.authService.registerUser}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PRODUCT_SERVICE_CATEGORY_GETLIST = "${app.routes.restTemplate.requestMicroservice.productService.getCategoryList}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PRODUCT_SERVICE_PRODUCT_GETLISTBYCATEGORYNAME = "${app.routes.restTemplate.requestMicroservice.productService.getProductListByCategoryName}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PRODUCT_SERVICE_PRODUCT_GETLIST = "${app.routes.restTemplate.requestMicroservice.productService.getProductList}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PAYMENT_SERVICE_BALANCE_ADD = "${app.routes.restTemplate.requestMicroservice.paymentService.addBalance}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PAYMENT_SERVICE_BALANCE_GET = "${app.routes.restTemplate.requestMicroservice.paymentService.getBalance}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PRODUCT_SERVICE_ORDER_LIST_CREATE = "${app.routes.restTemplate.requestMicroservice.productService.createOrderList}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PAYMENT_SERVICE_ORDERLIST_DELETEORDER = "${app.routes.restTemplate.requestMicroservice.paymentService.deleteOrderByProductCode}";
-
-    public static final String REST_TEMPLATE_REQUEST_MICROSERVICE_PAYMENT_SERVICE_ORDERLIST_GET = "${app.routes.restTemplate.requestMicroservice.paymentService.getOrderList}";
-
     //CONTROLLER PATHS
-    public static final String REQUEST_LOCKED_INDEXSERVICE = "${app.presented.routescontroller.requestmapping.locked.indexServiceController}";
+    public static final String REQUEST_SECURE_SERVICE_USER_CONTROLLER = "${app.routesController.controllers.secure.userServiceController}";
 
-    public static final String REQUEST_NOTLOCKED_AUTHSERVICE = "${app.presented.routescontroller.requestmapping.notlocked.authServiceController}";
+    public static final String REQUEST_NOT_SECURE_SERVICE_AUTH_CONTROLLER = "${app.routesController.controllers.notSecure.authServiceController}";
 
-    public static final String REQUEST_NOTLOCKED_PRODUCTSERVICE = "${app.presented.routescontroller.requestmapping.notlocked.authServiceController}";
+    public static final String REQUEST_NOT_SECURE_SERVICE_STOCK_CONTROLLER = "${app.routesController.controllers.notSecure.stockServiceController}";
+
+    public static final String REQUEST_SECURE_SERVICE_PAYMENT_CONTROLLER = "${app.routesController.controllers.secure.paymentServiceController}";
 
     //AUTHENTICATION PATHS
-    public static final String REQUEST_AUTHUSER = "${app.presented.routescontroller.notlocked.login.authUser}";
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_LOGIN = "${app.routesController.requestMapping.notSecure.auth-service.authUser}"; //
 
-    public static final String REQUEST_REGISTERUSER = "${app.presented.routescontroller.notlocked.login.registerUser}";
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_REGISTER = "${app.routesController.requestMapping.notSecure.auth-service.registerUser}"; //
 
-    //INDEX PATHS
-    public static final String REQUEST_INDEX_BALANCE_ADD = "${app.presented.routescontroller.locked.balance.addBalance}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_AUTH_SERVICE_PASSWORD_CHANGE = "${app.routesController.requestMapping.secure.auth-service.changePassword}";
 
-    public static final String REQUEST_INDEX_BALANCE_GET = "${app.presented.routescontroller.locked.balance.getBalance}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_AUTH_SERVICE_LOGOUT = "${app.routesController.requestMapping.secure.auth-service.logoutUser}";
 
-    public static final String REQUEST_INDEX_ORDER_LIST_ADD = "${app.presented.routescontroller.locked.orderList.addOrderList}";
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_REGISTER_AS_SELLER = "${app.routesController.requestMapping.notSecure.auth-service.registerSeller}";
 
-    public static final String REQUEST_INDEX_ORDER_LIST_DELETE = "${app.presented.routescontroller.locked.orderList.deleteOrderList}";
+    //USER-SERVICE PATHS
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_BALANCE_ADD = "${app.routesController.requestMapping.secure.user-service.addBalance}"; //
 
-    public static final String REQUEST_INDEX_ORDER_LIST_GET = "${app.presented.routescontroller.locked.orderList.getOrderList}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_BALANCE_GET = "${app.routesController.requestMapping.secure.user-service.getBalance}"; //
 
-    //PRODUCT / CATEGORY PATHS
-    public static final String REQUEST_PRODUCT_PRODUCTLIST= "${app.presented.routescontroller.notlocked.product.getProductList}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_ADD_USER_ADDRESS_INFO = "${app.routesController.requestMapping.secure.user-service.addAddressInfo}";
 
-    public static final String REQUEST_PRODUCT_PRODUCTLISTBYCATEGORYNAME = "${app.presented.routescontroller.notlocked.product.getProductListByCategoryname}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_USER_ACTIVATE = "${app.routesController.requestMapping.secure.user-service.userActivate}";
 
-    public static final String REQUEST_CATEGORY_CATEGORYLIST = "${app.presented.routescontroller.notlocked.category.getCategoryList}";
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_SELLER_ACTIVATE_BY_ADMIN= "${app.routesController.requestMapping.secure.user-service.sellerActivateByAdmin}";
 
+    public static final String REQUEST_SECURE_REST_CONTROLLER_USER_SERVICE_SELLER_NOT_ACTIVATED = "${app.routesController.requestMapping.secure.user-service.getSellers}";
+
+    //PAYMENT-SERVICE PATHS
+    public static final String REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_ADD_BY_PRODUCT_CODE = "${app.routesController.requestMapping.secure.payment-service.addOrderList}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_DELETE_BY_PRODUCT_CODE = "${app.routesController.requestMapping.secure.payment-service.deleteOrderList}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_GET = "${app.routesController.requestMapping.secure.payment-service.getOrderList}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_BUY = "${app.routesController.requestMapping.secure.payment-service.buyItemsInCart}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_QUERY_BY_TRACKING_NUMBER = "${app.routesController.requestMapping.secure.payment-service.queryByTrackingNumber}";
+
+    //STOCK-SERVICE PATHS
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_LIST_GET = "${app.routesController.requestMapping.notSecure.stock-service.getProductList}";
+
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_STOCK_SERVICE_GET_PRODUCT_BY_PRODUCT_CODE = "${app.routesController.requestMapping.notSecure.stock-service.getProductByProductId}";
+
+    public static final String REQUEST_NOT_SECURE_REST_CONTROLLER_STOCK_SERVICE_CATEGORY_LIST_GET = "${app.routesController.requestMapping.notSecure.stock-service.getCategoryList}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_CATEGORY_ADD = "${app.routesController.requestMapping.secure.stock-service.addCategory}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_CATEGORY_UPDATE = "${app.routesController.requestMapping.secure.stock-service.updateCategory}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_ADD = "${app.routesController.requestMapping.secure.stock-service.addProduct}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_UPDATE = "${app.routesController.requestMapping.secure.stock-service.updateProduct}";
+
+    public static final String REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_COMPANY_ADD = "${app.routesController.requestMapping.secure.stock-service.addCompany}";
 }

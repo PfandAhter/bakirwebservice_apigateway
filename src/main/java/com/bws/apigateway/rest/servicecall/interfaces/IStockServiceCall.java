@@ -22,4 +22,7 @@ public interface IStockServiceCall {
 
     ProductGetResponse getProductByProductId(String productId);
 
+    BaseResponse addCompany (CompanyAddRequest request);
+
+    void logInDataBase(String requestType, String responseType);
 }

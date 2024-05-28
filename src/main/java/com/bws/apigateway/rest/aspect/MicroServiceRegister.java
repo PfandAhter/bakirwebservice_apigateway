@@ -46,7 +46,7 @@ public class MicroServiceRegister {
         microServiceStoppedRequest.setMicroServiceStoppedDate(Timestamp.from(Instant.now()));
         microServiceStoppedRequest.setMicroServiceName(microServiceName);
         microServiceStoppedRequest.setMicroServiceErrorCode("4000");
-        microServiceStoppedRequest.setMicroServiceStatus("SHUTDOWN");
+        microServiceStoppedRequest.setMicroServiceStatus("DOWN");
         microServiceStoppedRequest.setMicroServiceCode(microServiceCode);
 
         microServiceRegisterClient.microServiceStopped(microServiceStoppedRequest);

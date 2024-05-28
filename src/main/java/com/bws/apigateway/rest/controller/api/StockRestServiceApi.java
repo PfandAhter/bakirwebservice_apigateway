@@ -10,10 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface StockRestServiceApi {
 
@@ -32,7 +30,7 @@ public interface StockRestServiceApi {
     @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_ADD , produces = MediaType.APPLICATION_JSON_VALUE,  consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<BaseResponse> addProduct (@Valid @RequestBody ProductAddRequest productAddRequest , HttpServletRequest request);
 
-    @GetMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_STOCK_SERVICE_GET_PRODUCT_BY_PRODUCT_CODE)
+    @GetMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_GET_BY_PRODUCT_CODE)
     ResponseEntity<ProductGetResponse> getProductByProductId(@RequestParam("product") String productId , HttpServletRequest request);
 
     @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_PRODUCT_UPDATE , produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +38,9 @@ public interface StockRestServiceApi {
 
     @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_COMPANY_ADD ,produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<BaseResponse> addCompany (@Valid @RequestBody CompanyAddRequest companyAddRequest , HttpServletRequest request);
+
+    @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_STOCK_SERVICE_COMMENT_ADD, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<BaseResponse> addComment (@RequestParam("productid") String productId , @RequestBody CommentAddRequest commentAddRequest , HttpServletRequest request);
 
 
 }

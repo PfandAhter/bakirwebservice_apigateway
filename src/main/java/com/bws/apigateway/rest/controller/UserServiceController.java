@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(path = PropertyConstants.REQUEST_SECURE_SERVICE_USER_CONTROLLER)
@@ -47,13 +48,23 @@ public class UserServiceController implements UserRestServiceApi {
     }
 
     @Override
-    public ResponseEntity<BaseResponse> sellerActivate(String sellerid, BaseRequest baseRequest, HttpServletRequest request) {
-        return ResponseEntity.ok(userServiceCall.activateSellerByAdmin(sellerid , baseRequest));
+    public ResponseEntity<BaseResponse> sellerActivate(String sellerId, BaseRequest baseRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(userServiceCall.activateSellerByAdmin(sellerId , baseRequest));
     }
 
     @Override
     public ResponseEntity<SellerGetResponse> notActiveSellers(String sellers, BaseRequest baseRequest, HttpServletRequest request) {
         return ResponseEntity.ok(userServiceCall.getSellers(sellers,baseRequest));
+    }
+
+    @Override
+    public ResponseEntity<BaseResponse> addPhoto(MultipartFile image, BaseRequest baseRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(userServiceCall.addPhoto(image,baseRequest));
+    }
+
+    @Override
+    public ResponseEntity<byte[]> getPhoto(BaseRequest baseRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(userServiceCall.getPhoto(baseRequest));
     }
 
 

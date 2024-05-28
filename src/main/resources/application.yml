@@ -20,8 +20,16 @@ spring:
   main:
     banner-mode: off
 
+#FEIGN CLIENT
+
 client:
   feign:
+    message-service:
+      path: http://localhost:8091/message-service
+      messageList: /list
+      messages: /received
+      sendMessage: /send
+
     microServiceRegister-service:
       path: http://localhost:8090
       ready: /registerservice/ready
@@ -34,27 +42,34 @@ client:
       getBalance: /balance/getbalance
       addAddressInfo: /address/add
       emailValidate: /activate
-      activateSellerByAdmin: /activateseller
+      activateSellerByAdmin: /activate/seller
       getSellers: /seller/get
+      addPhoto: /photo/add
+      getPhoto: /photo/get
 
     payment-service:
-      path: http://localhost:8078/paymentservice
+      path: http://localhost:8078/payment
       cart:
-        buyItemsInCart: /buyitemsincart
-        addItemInCart: /additemincart
-        getItemListInCart: /getitemlistincart
-        queryByTrackingNumber: /querybytrackingnumber
+        buyItemsInCart: /cart/buy
+        addItemInCart: /cart/add
+        getItemListInCart: /cart/get
+        queryByTrackingNumber: /query-with-trackingNumber
 
     auth-service:
       path: http://localhost:8081/auth
       login: /login
       register: /register
-      changePassword: /changepassword
+      passwordChange: /password/change
       logoutUser: /logout
-      registerSellerRequest: /registerseller
+      registerSellerRequest: /register-seller
+      passwordForget: /password/forget
+      passwordChangeWithCode: /password/change-with-code
 
     stock-service:
       path: http://localhost:8083/stock-service
+      comment:
+        addComment: /comment/add
+
       company:
         addCompany: /company/add
 
@@ -69,10 +84,14 @@ client:
         addProduct: /product/add
         updateProduct: /product/update
 
+
+# APP CONTROLLERS
+
 app:
   routesController:
     controllers:
       secure:
+        messageServiceController: /message
         userServiceController: /user
         paymentServiceController: /payment
       notSecure:
@@ -81,8 +100,13 @@ app:
 
     requestMapping:
       secure:
+        message-service:
+          messageList: /list
+          messages: /received
+          sendMessage: /send
+
         auth-service:
-          changePassword: /changepassword
+          passwordChange: /password/change
           logoutUser: /logout
 
         stock-service:
@@ -91,13 +115,14 @@ app:
           addProduct:  /product/add
           updateProduct: /product/update
           addCompany: /company/add
+          addComment: /comment/add
 
         payment-service:
-          queryByTrackingNumber: /querybytrackingnumber
-          addOrderList: /buywithproductcode
-          deleteOrderList: /deleteorderbyproductcode
-          getOrderList: /getorderlist
-          buyItemsInCart: /buyitemsincart
+          queryByTrackingNumber: /query-with-trackingNumber
+          addItemsInCart: /cart/add
+          clearItemsInCart: /cart/clear
+          getItemsInCart: /cart/get
+          buyItemsInCart: /cart/buy
 
         user-service:
           addBalance: /balance/add
@@ -106,20 +131,25 @@ app:
           userActivate: /activate
           sellerActivateByAdmin: /seller/activate
           getSellers: /seller/get
+          addPhoto: /photo/add
+          getPhoto: /photo/get
 
       notSecure:
         stock-service:
-          getProductByProductId: /product/getproduct
+          getProductByProductId: /product/get
           getProductList: /product/list
           getCategoryList: /category/list
 
         auth-service:
           authUser: /login
           registerUser: /register
-          registerSeller: /registerseller
+          registerSeller: /register-seller
+          passwordForget: /password/forget
+          passwordChangeWithCode: /password/change-with-code
+
 
   jwtSecret: S5arZ8qX8Anvk60LIHdGKZiGyLAyxW+LU1Xw2H4R6Uu1ndlUNPqhpVuKtFsfFvA+
   jwtCryptoSecret: sBnlg0BGosgPMQju
-logging:
-  level:
-    org.springframework: DEBUG
+#logging:
+#  level:
+#    org.springframework: DEBUG

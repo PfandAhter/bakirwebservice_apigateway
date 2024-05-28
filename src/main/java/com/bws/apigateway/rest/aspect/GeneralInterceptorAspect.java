@@ -48,4 +48,17 @@ public class GeneralInterceptorAspect {
             }
         }
     }
+
+    /*@Before(value = "execution(* com.bws.apigateway.rest.controller..*(..))")
+    public void addRoleBeforeExecControllers (JoinPoint joinPoint){
+        Object [] paramters = joinPoint.getArgs();
+
+        for(Object param : paramters){
+            if(param instanceof BaseRequest){
+                ((BaseRequest) param).setRole(request.getHeader("Role");
+            }
+        }
+
+    }*/
+
 }

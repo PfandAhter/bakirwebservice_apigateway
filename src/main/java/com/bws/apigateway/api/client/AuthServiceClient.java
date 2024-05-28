@@ -17,7 +17,7 @@ public interface AuthServiceClient {
     @PostMapping("${client.feign.auth-service.register}")
     BaseResponse registerRequest(@RequestBody UserAddRequest request);
 
-    @PostMapping("${client.feign.auth-service.changePassword}")
+    @PostMapping("${client.feign.auth-service.passwordChange}")
     BaseResponse changePassword(@RequestBody PasswordChangeRequest request);
 
     @PostMapping("${client.feign.auth-service.logoutUser}")
@@ -25,5 +25,11 @@ public interface AuthServiceClient {
 
     @PostMapping("${client.feign.auth-service.registerSellerRequest}")
     BaseResponse registerSellerRequest (@RequestBody SellerAddRequest sellerAddRequest);
+
+    @PostMapping("${client.feign.auth-service.passwordForget}")
+    BaseResponse forgetPassword (@RequestBody ForgetPasswordRequest forgetPasswordRequest);
+
+    @PostMapping("${client.feign.auth-service.passwordChangeWithCode}")
+    BaseResponse changePwByCode (@RequestBody ChangePwByCodeRequest changePwByCodeRequest);
 
 }

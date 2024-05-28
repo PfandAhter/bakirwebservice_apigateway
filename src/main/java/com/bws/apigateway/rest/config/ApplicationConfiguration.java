@@ -3,8 +3,14 @@ package com.bws.apigateway.rest.config;
 
 import com.bws.apigateway.model.constants.Constants;
 import com.bws.apigateway.repository.UserRepository;
+import feign.form.spring.SpringFormEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.AbstractFormWriter;
+import org.springframework.cloud.openfeign.support.JsonFormWriter;
+import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -17,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+
 @Configuration
 @EnableWebSecurity
 @EnableAspectJAutoProxy
@@ -26,6 +33,8 @@ import org.springframework.web.client.RestTemplate;
 public class ApplicationConfiguration {
 
     private final UserRepository userRepository;
+
+    private final ObjectFactory<HttpMessageConverters> messageConverters;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -52,6 +61,11 @@ public class ApplicationConfiguration {
     @Bean
     public RestTemplate restTemplate (){
         return new RestTemplate();
+    }
+
+    @Bean
+    public AbstractFormWriter jsonFormWriter() {
+        return new JsonFormWriter();
     }
 
 

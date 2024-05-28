@@ -3,10 +3,11 @@ package com.bws.apigateway.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-
-public class ProductDTO {
+public class ProductGetDTO {
 
     private String productId;
     private String productName;
@@ -16,4 +17,6 @@ public class ProductDTO {
     private int stock;
     private int commentCount;
     private String description;
+    private List<CommentDTO> comments;
+
 }

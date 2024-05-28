@@ -10,6 +10,7 @@ import com.bws.apigateway.model.entity.LogApiGateway;
 import com.bws.apigateway.repository.LogApiGatewayRepository;
 import com.bws.apigateway.rest.servicecall.interfaces.IStockServiceCall;
 import com.bws.apigateway.rest.util.Util;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,28 +19,32 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 
-
 public class StockServiceCallImpl implements IStockServiceCall {
 
     private final LogApiGatewayRepository logApiGatewayRepository;
 
     private final StockServiceClient stockServiceClient;
 
+    private static final String serviceName = "stock-service";
+
     //CATEGORY
 
     @Override
+    @Transactional
     public CategoryListResponse getCategoryListResponse(String categoryId) {
         logInDataBase(String.class.getName(),CategoryListResponse.class.getName());
         return stockServiceClient.listCategoryRequest(categoryId);
     }
 
     @Override
+    @Transactional
     public BaseResponse addCategory (CategoryAddRequest request){
         logInDataBase(CategoryAddRequest.class.getName(),BaseResponse.class.getName());
         return stockServiceClient.addCategoryRequest(request);
     }
 
     @Override
+    @Transactional
     public BaseResponse updateCategory (CategoryUpdateRequest request){
         logInDataBase(CategoryUpdateRequest.class.getName(),BaseResponse.class.getName());
         return stockServiceClient.updateCategoryRequest(request);
@@ -48,18 +53,21 @@ public class StockServiceCallImpl implements IStockServiceCall {
     //PRODUCT
 
     @Override
+    @Transactional
     public ProductListResponse getProductListResponse(String categoryId) {
         logInDataBase(String.class.getName(),ProductListResponse.class.getName());
         return stockServiceClient.listProductByCategoryIdRequest(categoryId);
     }
 
     @Override
+    @Transactional
     public BaseResponse addProduct (ProductAddRequest request){
         logInDataBase(ProductAddRequest.class.getName(),BaseResponse.class.getName());
         return stockServiceClient.addProductRequest(request);
     }
 
     @Override
+    @Transactional
     public BaseResponse updateProduct (ProductUpdateRequest request){
         logInDataBase(ProductUpdateRequest.class.getName(),BaseResponse.class.getName());
         return stockServiceClient.updateProductRequest(request);
@@ -71,17 +79,27 @@ public class StockServiceCallImpl implements IStockServiceCall {
         return stockServiceClient.getProduct(productId);
     }
 
+    @Override
+    @Transactional
     public BaseResponse addCompany (CompanyAddRequest request){
-        //logtodatabase
+        logInDataBase(CompanyAddRequest.class.getName(),BaseResponse.class.getName());
         return stockServiceClient.addCompany(request);
     }
 
-    private void logInDataBase(String requestType, String responseType){
+    public BaseResponse addComment (String productId , CommentAddRequest commentAddRequest){
+        //log to database
+
+        return stockServiceClient.addComment(productId,commentAddRequest);
+    }
+
+    @Override
+    @Transactional
+    public void logInDataBase(String requestType, String responseType){
         logApiGatewayRepository.save(LogApiGateway.builder().fetchedMicroservice(
-                        "StockService")
+                        serviceName)
                 .logId(Util.generateCode())
                 .requestType(requestType)
-                .error_code(0000L)
+                .error_code(2000L)
                 .successfully(1)
                 .responseType(responseType).build());
     }

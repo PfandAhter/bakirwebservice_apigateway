@@ -38,4 +38,7 @@ public interface StockServiceClient {
     @PostMapping("${client.feign.stock-service.company.addCompany}")
     BaseResponse addCompany (@RequestBody CompanyAddRequest companyAddRequest);
 
+    @PostMapping("${client.feign.stock-service.comment.addComment}")
+    BaseResponse addComment (@RequestParam("productid") String productId , CommentAddRequest commentAddRequest);
+
 }

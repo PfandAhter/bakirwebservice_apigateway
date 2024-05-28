@@ -7,7 +7,6 @@ import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.AuthRestServiceApi;
 import com.bws.apigateway.rest.servicecall.AuthServiceCallImpl;
-import com.bws.apigateway.rest.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +49,16 @@ public class AuthServiceController implements AuthRestServiceApi {
     @Override
     public ResponseEntity<BaseResponse> registerSeller(SellerAddRequest sellerAddRequest, HttpServletRequest request) {
         return ResponseEntity.ok(authServiceCall.authServiceRegisterSeller(sellerAddRequest));
+    }
+
+    @Override
+    public ResponseEntity<BaseResponse> forgetPassword(ForgetPasswordRequest forgetPasswordRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(authServiceCall.forgetPassword(forgetPasswordRequest));
+    }
+
+    @Override
+    public ResponseEntity<BaseResponse> changePwByCode(ChangePwByCodeRequest changePwByCodeRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(authServiceCall.changePwByCode(changePwByCodeRequest));
     }
 
 

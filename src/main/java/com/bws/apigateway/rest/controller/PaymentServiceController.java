@@ -1,8 +1,7 @@
 package com.bws.apigateway.rest.controller;
 
 import com.bws.apigateway.api.request.BaseRequest;
-import com.bws.apigateway.api.request.AddItemRequest;
-import com.bws.apigateway.api.request.DeleteOrderByProductCodeRequest;
+import com.bws.apigateway.api.request.AddItemsInCartRequest;
 import com.bws.apigateway.api.response.*;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.PaymentRestServiceApi;
@@ -26,18 +25,18 @@ public class PaymentServiceController implements PaymentRestServiceApi {
     private final PaymentServiceCallImpl paymentServiceCall;
 
     @Override
-    public ResponseEntity<BaseResponse> createOrder(AddItemRequest buyProductWithProductCodeRequest, HttpServletRequest request, BindingResult bindingResult) {
-        return ResponseEntity.ok(paymentServiceCall.createOrderList(buyProductWithProductCodeRequest));
+    public ResponseEntity<BaseResponse> addItemsInCart(AddItemsInCartRequest buyProductWithProductCodeRequest, HttpServletRequest request, BindingResult bindingResult) {
+        return ResponseEntity.ok(paymentServiceCall.addItemsInCart(buyProductWithProductCodeRequest));
     }
 
     @Override
-    public ResponseEntity<BaseResponse> deleteOrderByProductCode(DeleteOrderByProductCodeRequest deleteOrderByProductCodeRequest, HttpServletRequest request, BindingResult bindingResult) {
-        return ResponseEntity.ok(paymentServiceCall.deleteOrderByProductCode(deleteOrderByProductCodeRequest));
+    public ResponseEntity<BaseResponse> clearItemsInCart(BaseRequest baseRequest, HttpServletRequest request, BindingResult bindingResult) {
+        return ResponseEntity.ok(paymentServiceCall.clearItemsInCart(baseRequest));
     }
 
     @Override
-    public ResponseEntity<GetProductDetailsResponse> getOrderList(BaseRequest baseRequest, HttpServletRequest request) {
-        return ResponseEntity.ok(paymentServiceCall.getOrderList(baseRequest));
+    public ResponseEntity<GetProductDetailsResponse> getItemsInCart(BaseRequest baseRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(paymentServiceCall.getItemsInCart(baseRequest));
     }
 
     @Override
@@ -46,8 +45,8 @@ public class PaymentServiceController implements PaymentRestServiceApi {
     }
 
     @Override
-    public ResponseEntity<QueryTrackingNumberResponse> queryByTrackingNumber(String trackingNumber , BaseRequest baseRequest) {
-        return ResponseEntity.ok(paymentServiceCall.queryTrackingNumberResponse(trackingNumber , baseRequest));
+    public ResponseEntity<QueryTrackingNumberResponse> queryWithTrackingNumber(String trackingNumber , BaseRequest baseRequest) {
+        return ResponseEntity.ok(paymentServiceCall.queryWithTrackingNumber(trackingNumber , baseRequest));
     }
 
 }

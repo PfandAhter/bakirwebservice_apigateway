@@ -11,7 +11,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AuthRestServiceApi {
     @PostMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_LOGIN, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,5 +27,12 @@ public interface AuthRestServiceApi {
 
     @PostMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_REGISTER_AS_SELLER , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<BaseResponse> registerSeller (@NonNull @RequestBody SellerAddRequest sellerAddRequest, HttpServletRequest request);
+
+    @PostMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_PASSWORD_FORGET, consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<BaseResponse> forgetPassword (@NonNull @RequestBody ForgetPasswordRequest forgetPasswordRequest, HttpServletRequest request);
+
+    @PostMapping(path = PropertyConstants.REQUEST_NOT_SECURE_REST_CONTROLLER_AUTH_SERVICE_PASSWORD_CHANGE_WITH_CODE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<BaseResponse> changePwByCode (@NonNull @RequestBody ChangePwByCodeRequest changePwByCodeRequest , HttpServletRequest request);
+
 
 }

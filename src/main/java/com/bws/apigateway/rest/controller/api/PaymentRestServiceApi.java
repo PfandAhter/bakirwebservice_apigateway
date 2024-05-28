@@ -1,8 +1,7 @@
 package com.bws.apigateway.rest.controller.api;
 
 import com.bws.apigateway.api.request.BaseRequest;
-import com.bws.apigateway.api.request.AddItemRequest;
-import com.bws.apigateway.api.request.DeleteOrderByProductCodeRequest;
+import com.bws.apigateway.api.request.AddItemsInCartRequest;
 import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.api.response.BuyItemsInCartResponse;
 import com.bws.apigateway.api.response.GetProductDetailsResponse;
@@ -20,19 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface PaymentRestServiceApi {
 
-    @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_ADD_BY_PRODUCT_CODE, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<BaseResponse> createOrder(@Valid @RequestBody AddItemRequest buyProductWithProductCodeRequest, HttpServletRequest request, BindingResult bindingResult);
+    @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_CART_ADD, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<BaseResponse> addItemsInCart(@Valid @RequestBody AddItemsInCartRequest buyProductWithProductCodeRequest, HttpServletRequest request, BindingResult bindingResult);
 
-    @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_DELETE_BY_PRODUCT_CODE,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<BaseResponse> deleteOrderByProductCode (@Valid @RequestBody DeleteOrderByProductCodeRequest deleteOrderByProductCodeRequest , HttpServletRequest request , BindingResult bindingResult);
+    @PostMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_CART_CLEAR,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<BaseResponse> clearItemsInCart(@Valid @RequestBody BaseRequest baseRequest, HttpServletRequest request , BindingResult bindingResult);
 
-    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_GET)
-    ResponseEntity<GetProductDetailsResponse> getOrderList (BaseRequest baseRequest , HttpServletRequest request);
+    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_CART_GET)
+    ResponseEntity<GetProductDetailsResponse> getItemsInCart(BaseRequest baseRequest , HttpServletRequest request);
 
-    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_ORDER_LIST_BUY)
+    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_CART_BUY)
     ResponseEntity<BuyItemsInCartResponse> buyItemsInCart (BaseRequest baseRequest , HttpServletRequest request);
 
-    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_QUERY_BY_TRACKING_NUMBER)
-    ResponseEntity<QueryTrackingNumberResponse> queryByTrackingNumber(@RequestParam("trackingnumber") String trackingNumber, BaseRequest baseRequest);
+    @GetMapping(path = PropertyConstants.REQUEST_SECURE_REST_CONTROLLER_PAYMENT_SERVICE_QUERY_WITH_TRACKING_NUMBER)
+    ResponseEntity<QueryTrackingNumberResponse> queryWithTrackingNumber(@RequestParam("trackingnumber") String trackingNumber, BaseRequest baseRequest);
 
 }

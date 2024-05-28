@@ -55,7 +55,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/**") //.hasRole("USER")
                         .permitAll()
                         .requestMatchers("/stock/product/add")
-                        .permitAll()
+                        .authenticated()// MUST HAVE SELLER ROLE
+                        .requestMatchers("/stock/category/update")
+                        .authenticated()// MUST HAVE SELLER ROLE
+                        .requestMatchers("/microservice/dashboard")
+                        .authenticated() // MUST HAVE ADMIN ROLE...
                         .requestMatchers("/stock/**")
                         .permitAll()
                         .requestMatchers("/payment/**")

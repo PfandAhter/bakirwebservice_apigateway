@@ -2,13 +2,13 @@ package com.bws.apigateway.rest.servicecall;
 
 import com.bws.apigateway.api.client.PaymentServiceClient;
 import com.bws.apigateway.api.request.BaseRequest;
-import com.bws.apigateway.api.request.AddItemRequest;
-import com.bws.apigateway.api.request.DeleteOrderByProductCodeRequest;
+import com.bws.apigateway.api.request.AddItemsInCartRequest;
 import com.bws.apigateway.api.response.*;
 import com.bws.apigateway.model.entity.LogApiGateway;
 import com.bws.apigateway.repository.LogApiGatewayRepository;
 import com.bws.apigateway.rest.servicecall.interfaces.IPaymentServiceCall;
 import com.bws.apigateway.rest.util.Util;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,37 +24,50 @@ public class PaymentServiceCallImpl implements IPaymentServiceCall {
 
     private final PaymentServiceClient paymentServiceClient;
 
+    private static final String serviceName = "payment-service";
 
-    public BaseResponse createOrderList(AddItemRequest request){
-//        logInDataBase("Stock-Service",request.getClass().getName(),BuyProductWithCodeResponse.class.getName());
+    @Override
+    @Transactional
+    public BaseResponse addItemsInCart(AddItemsInCartRequest request){
+        logInDataBase(serviceName,AddItemsInCartRequest.class.getName(),BaseResponse.class.getName());
         return paymentServiceClient.addItemInCart(request);
     }
 
-    public BaseResponse deleteOrderByProductCode (DeleteOrderByProductCodeRequest request){
+    @Override
+    @Transactional
+    public BaseResponse clearItemsInCart(BaseRequest request){
 //                logInDataBase("Stock-Service",request.getClass().getName(),BuyProductWithCodeResponse.class.getName());
-//        return restTemplate.postForObject(deleteOrderByProductCodeFromPaymentServicePath,request,BaseResponse.class);
         return null;
     }
 
-    public GetProductDetailsResponse getOrderList (BaseRequest request){
-//                logInDataBase("Stock-Service",request.getClass().getName(),BuyProductWithCodeResponse.class.getName());
+    @Override
+    @Transactional
+    public GetProductDetailsResponse getItemsInCart(BaseRequest request){
+        logInDataBase(serviceName,BaseRequest.class.getName(),GetProductDetailsResponse.class.getName());
         return paymentServiceClient.getItemsInCart(request);
     }
 
     @Override
+    @Transactional
     public BuyItemsInCartResponse buyItemsInCart (BaseRequest request){
+        logInDataBase(serviceName,BaseRequest.class.getName(),BuyItemsInCartResponse.class.getName());
         return paymentServiceClient.buyItemsInCart(request);
     }
 
-    public QueryTrackingNumberResponse queryTrackingNumberResponse (String trackingNumber , BaseRequest baseRequest){
+    @Override
+    @Transactional
+    public QueryTrackingNumberResponse queryWithTrackingNumber(String trackingNumber , BaseRequest baseRequest){
+        logInDataBase(serviceName,BaseRequest.class.getName(),QueryTrackingNumberResponse.class.getName());
         return paymentServiceClient.queryByTrackingNumber(trackingNumber , baseRequest);
     }
 
-    private void logInDataBase(String serviceName,String baseRequest, String responseType){
+    @Transactional
+    @Override
+    public void logInDataBase(String serviceName,String baseRequest, String responseType){
         logApiGatewayRepository.save(LogApiGateway.builder().fetchedMicroservice(
                         serviceName)
                         .logId(Util.generateCode())
-                .requestType(baseRequest.substring(31,baseRequest.length()).toString())
+                .requestType(baseRequest)
                 .error_code(0000L)
                 .successfully(1)
                 .responseType(responseType).build());

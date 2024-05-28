@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(path = PropertyConstants.REQUEST_NOT_SECURE_SERVICE_STOCK_CONTROLLER)
@@ -66,6 +67,13 @@ public class StockServiceController implements StockRestServiceApi {
     public ResponseEntity<BaseResponse> addCompany(CompanyAddRequest companyAddRequest, HttpServletRequest request) {
         return ResponseEntity.ok(stockServiceCall.addCompany(companyAddRequest));
     }
+
+    @Override
+    public ResponseEntity<BaseResponse> addComment(String productId, CommentAddRequest commentAddRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(stockServiceCall.addComment(productId,commentAddRequest));
+    }
+
+
 
 
 }

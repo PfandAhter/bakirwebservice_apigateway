@@ -24,5 +24,6 @@ public interface IStockServiceCall {
 
     BaseResponse addCompany (CompanyAddRequest request);
 
-    void logInDataBase(String requestType, String responseType);
+    BaseResponse addComment (String productId , CommentAddRequest commentAddRequest);
+
 }

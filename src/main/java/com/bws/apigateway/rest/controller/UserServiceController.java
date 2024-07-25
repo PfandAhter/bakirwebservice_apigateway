@@ -10,6 +10,7 @@ import com.bws.apigateway.api.response.SellerGetResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.UserRestServiceApi;
 import com.bws.apigateway.rest.servicecall.UserServiceCallImpl;
+import com.bws.apigateway.rest.servicecall.interfaces.IUserServiceCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UserServiceController implements UserRestServiceApi {
 
-    private final UserServiceCallImpl userServiceCall;
+    private final IUserServiceCall userServiceCall;
 
     @Override
     public ResponseEntity<BaseResponse> addBalance(AddBalanceRequest addBalanceRequest, HttpServletRequest request, BindingResult bindingResult) {

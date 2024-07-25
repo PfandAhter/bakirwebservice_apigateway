@@ -19,5 +19,4 @@ public interface IPaymentServiceCall {
 
     QueryTrackingNumberResponse queryWithTrackingNumber(String trackingNumber , BaseRequest baseRequest);
 
-    void logInDataBase(String serviceName,String baseRequest, String responseType);
 }

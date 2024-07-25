@@ -6,6 +6,7 @@ import com.bws.apigateway.api.response.*;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.PaymentRestServiceApi;
 import com.bws.apigateway.rest.servicecall.PaymentServiceCallImpl;
+import com.bws.apigateway.rest.servicecall.interfaces.IPaymentServiceCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PaymentServiceController implements PaymentRestServiceApi {
 
-    private final PaymentServiceCallImpl paymentServiceCall;
+    private final IPaymentServiceCall paymentServiceCall;
 
     @Override
     public ResponseEntity<BaseResponse> addItemsInCart(AddItemsInCartRequest buyProductWithProductCodeRequest, HttpServletRequest request, BindingResult bindingResult) {

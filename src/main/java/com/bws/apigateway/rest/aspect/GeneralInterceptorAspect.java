@@ -1,6 +1,7 @@
 package com.bws.apigateway.rest.aspect;
 
 import com.bws.apigateway.api.request.BaseRequest;
+import com.bws.apigateway.model.Role;
 import com.bws.apigateway.model.entity.ErrorCodes;
 import com.bws.apigateway.repository.ErrorCodeRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,7 +56,7 @@ public class GeneralInterceptorAspect {
 
         for(Object param : paramters){
             if(param instanceof BaseRequest){
-                ((BaseRequest) param).setRole(request.getHeader("Role");
+                ((BaseRequest) param).setRole(Role.valueOf(request.getHeader("Role")));
             }
         }
 

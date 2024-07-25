@@ -8,6 +8,7 @@ import com.bws.apigateway.api.response.message.MessagesResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.MessageRestServiceApi;
 import com.bws.apigateway.rest.servicecall.MessageServiceCallImpl;
+import com.bws.apigateway.rest.servicecall.interfaces.IMessageServiceCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class MessageServiceController implements MessageRestServiceApi {
 
-    private final MessageServiceCallImpl messageServiceCall;
+    private final IMessageServiceCall messageServiceCall;
 
     @Override
     public ResponseEntity<MessageListResponse> messageListRequest (String chatId, BaseRequest baseRequest, HttpServletRequest request) {

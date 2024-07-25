@@ -4,6 +4,7 @@ import com.bws.apigateway.api.request.BaseRequest;
 import com.bws.apigateway.api.response.GetMicroServicesDashboardResponse;
 import com.bws.apigateway.rest.controller.api.MicroRestServiceApi;
 import com.bws.apigateway.rest.servicecall.MicroServiceDashboard;
+import com.bws.apigateway.rest.servicecall.interfaces.IMicroServiceDashboardCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class MicroServicesController implements MicroRestServiceApi {
 
-    private final MicroServiceDashboard microServiceDashboard;
+    private final IMicroServiceDashboardCall microServiceDashboard;
 
     @Override
     public ResponseEntity<GetMicroServicesDashboardResponse> microServiceDashboard(BaseRequest baseRequest, HttpServletRequest request) {

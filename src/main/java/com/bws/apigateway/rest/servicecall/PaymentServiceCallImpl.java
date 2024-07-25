@@ -7,6 +7,8 @@ import com.bws.apigateway.api.response.*;
 import com.bws.apigateway.model.entity.LogApiGateway;
 import com.bws.apigateway.repository.LogApiGatewayRepository;
 import com.bws.apigateway.rest.servicecall.interfaces.IPaymentServiceCall;
+import com.bws.apigateway.rest.util.LogApiGatewayFactory;
+import com.bws.apigateway.rest.util.ServiceNameProvider;
 import com.bws.apigateway.rest.util.Util;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,61 +17,39 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 
-public class PaymentServiceCallImpl implements IPaymentServiceCall {
-
-    private final LogApiGatewayRepository logApiGatewayRepository;
+public class PaymentServiceCallImpl implements IPaymentServiceCall, ServiceNameProvider {
 
     private final PaymentServiceClient paymentServiceClient;
 
-    private static final String serviceName = "payment-service";
+    @Override
+    public String getServiceName() {
+        return "payment-service";
+    }
 
     @Override
-    @Transactional
     public BaseResponse addItemsInCart(AddItemsInCartRequest request){
-        logInDataBase(serviceName,AddItemsInCartRequest.class.getName(),BaseResponse.class.getName());
         return paymentServiceClient.addItemInCart(request);
     }
 
     @Override
-    @Transactional
     public BaseResponse clearItemsInCart(BaseRequest request){
-//                logInDataBase("Stock-Service",request.getClass().getName(),BuyProductWithCodeResponse.class.getName());
         return null;
     }
 
     @Override
-    @Transactional
     public GetProductDetailsResponse getItemsInCart(BaseRequest request){
-        logInDataBase(serviceName,BaseRequest.class.getName(),GetProductDetailsResponse.class.getName());
         return paymentServiceClient.getItemsInCart(request);
     }
 
     @Override
-    @Transactional
     public BuyItemsInCartResponse buyItemsInCart (BaseRequest request){
-        logInDataBase(serviceName,BaseRequest.class.getName(),BuyItemsInCartResponse.class.getName());
         return paymentServiceClient.buyItemsInCart(request);
     }
 
     @Override
-    @Transactional
     public QueryTrackingNumberResponse queryWithTrackingNumber(String trackingNumber , BaseRequest baseRequest){
-        logInDataBase(serviceName,BaseRequest.class.getName(),QueryTrackingNumberResponse.class.getName());
         return paymentServiceClient.queryByTrackingNumber(trackingNumber , baseRequest);
-    }
-
-    @Transactional
-    @Override
-    public void logInDataBase(String serviceName,String baseRequest, String responseType){
-        logApiGatewayRepository.save(LogApiGateway.builder().fetchedMicroservice(
-                        serviceName)
-                        .logId(Util.generateCode())
-                .requestType(baseRequest)
-                .error_code(0000L)
-                .successfully(1)
-                .responseType(responseType).build());
     }
 }

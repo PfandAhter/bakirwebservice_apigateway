@@ -20,6 +20,5 @@ public interface IAuthServiceCall {
 
     BaseResponse changePwByCode (ChangePwByCodeRequest request);
 
-    void logInDataBase(String requestType, String responseType);
 
 }

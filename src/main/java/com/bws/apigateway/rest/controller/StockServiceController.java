@@ -8,6 +8,7 @@ import com.bws.apigateway.api.response.ProductListResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.StockRestServiceApi;
 import com.bws.apigateway.rest.servicecall.StockServiceCallImpl;
+import com.bws.apigateway.rest.servicecall.interfaces.IStockServiceCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class StockServiceController implements StockRestServiceApi {
 
-    private final StockServiceCallImpl stockServiceCall;
+    private final IStockServiceCall stockServiceCall;
 
 
     @Override

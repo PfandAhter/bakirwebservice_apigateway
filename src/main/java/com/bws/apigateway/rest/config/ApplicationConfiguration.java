@@ -3,14 +3,12 @@ package com.bws.apigateway.rest.config;
 
 import com.bws.apigateway.model.constants.Constants;
 import com.bws.apigateway.repository.UserRepository;
-import feign.form.spring.SpringFormEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.AbstractFormWriter;
 import org.springframework.cloud.openfeign.support.JsonFormWriter;
-import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -67,6 +65,7 @@ public class ApplicationConfiguration {
     public AbstractFormWriter jsonFormWriter() {
         return new JsonFormWriter();
     }
+
 
 
 

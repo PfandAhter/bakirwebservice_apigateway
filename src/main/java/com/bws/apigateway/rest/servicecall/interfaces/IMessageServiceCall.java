@@ -14,5 +14,4 @@ public interface IMessageServiceCall {
 
     BaseResponse sendMessage (SendMessageRequest sendMessageRequest);
 
-    void logInDataBase(String serviceName,String baseRequest, String responseType);
 }

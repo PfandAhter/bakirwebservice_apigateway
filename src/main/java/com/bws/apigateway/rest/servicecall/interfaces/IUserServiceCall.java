@@ -7,6 +7,7 @@ import com.bws.apigateway.api.request.EmailValidatorRequest;
 import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.api.response.GetBalanceResponse;
 import com.bws.apigateway.api.response.SellerGetResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IUserServiceCall {
     GetBalanceResponse getBalanceRequest (BaseRequest request);
@@ -21,5 +22,8 @@ public interface IUserServiceCall {
 
     SellerGetResponse getSellers (String sellerId , BaseRequest baseRequest);
 
-    void logInDataBase(String requestType, String responseType);
+    BaseResponse addPhoto (MultipartFile image , BaseRequest baseRequest);
+
+    byte[] getPhoto (BaseRequest baseRequest);
+
 }

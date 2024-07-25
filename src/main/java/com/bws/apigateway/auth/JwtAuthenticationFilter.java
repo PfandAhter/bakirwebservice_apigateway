@@ -1,6 +1,5 @@
 package com.bws.apigateway.auth;
 
-import com.bws.apigateway.model.constants.PropertyConstants;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,7 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -27,26 +27,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private static final List<String> pathList = Arrays.asList("/auth/login", "/auth/register", "/user/activate", "/stock/category/list", "/stock/product/list");
 
     //https://www.baeldung.com/spring-exclude-filter
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
 
-        ArrayList<String> pathList = new ArrayList<>();
-        pathList.add("/auth/login");
-        pathList.add("/auth/register");
-        pathList.add("/user/activate");
-        pathList.add("/stock/category/list");
-        pathList.add("/stock/product/list");
-        boolean check = false;
+        boolean check = pathList.stream().anyMatch(path::startsWith);
 
-        for(int i = 0; i <pathList.size(); i++){
-            check = path.startsWith(pathList.get(i));
-            if(check){
-                break;
-            }
-        }
         if(path.startsWith("/stock/product/add") || path.startsWith("/stock/category/add")){
             check = false;
         }

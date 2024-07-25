@@ -24,6 +24,10 @@ spring:
 
 client:
   feign:
+    token-service:
+      path: http://localhost:8079/token
+      extractUsername: /extract/username
+
     message-service:
       path: http://localhost:8091/message-service
       messageList: /list

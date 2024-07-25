@@ -30,6 +30,8 @@ public class MicroServiceRegister {
     @EventListener(ApplicationReadyEvent.class)
     public void logToDataBaseServiceReady(){
         microServiceCode = Util.generateCode();
+        //log.info("AVAILABLE CORE COUNT : " + Runtime.getRuntime().availableProcessors());
+
         MicroServiceReadyRequest microServiceReadyRequest = new MicroServiceReadyRequest();
         microServiceReadyRequest.setMicroServiceCode(microServiceCode);
         microServiceReadyRequest.setMicroServiceStatus("UP");

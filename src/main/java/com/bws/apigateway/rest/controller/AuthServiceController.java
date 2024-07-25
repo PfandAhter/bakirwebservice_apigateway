@@ -7,6 +7,7 @@ import com.bws.apigateway.api.response.BaseResponse;
 import com.bws.apigateway.model.constants.PropertyConstants;
 import com.bws.apigateway.rest.controller.api.AuthRestServiceApi;
 import com.bws.apigateway.rest.servicecall.AuthServiceCallImpl;
+import com.bws.apigateway.rest.servicecall.interfaces.IAuthServiceCall;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class AuthServiceController implements AuthRestServiceApi {
 
-    private final AuthServiceCallImpl authServiceCall;
+    private final IAuthServiceCall authServiceCall;
 
     @Override
     public ResponseEntity<AuthUserResponse> authUser(AuthUserRequest authUserRequest, HttpServletRequest request, BindingResult bindingResult){

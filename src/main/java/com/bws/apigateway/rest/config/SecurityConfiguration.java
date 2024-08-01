@@ -48,8 +48,6 @@ public class SecurityConfiguration {
         httpSecurity.csrf(configure -> configure
                         .disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/")
-                        .permitAll()
                         .requestMatchers("/auth/**" )
                         .permitAll()
                         .requestMatchers("/user/**") //.hasRole("USER")
@@ -61,7 +59,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/microservice/dashboard")
                         .authenticated() // MUST HAVE ADMIN ROLE...
                         .requestMatchers("/stock/**")
-                        .permitAll()
+                        .authenticated()
                         .requestMatchers("/payment/**")
                         .permitAll()
                         .anyRequest()

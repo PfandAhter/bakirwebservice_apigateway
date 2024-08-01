@@ -27,17 +27,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-    private static final List<String> pathList = Arrays.asList("/auth/login", "/auth/register", "/user/activate", "/stock/category/list", "/stock/product/list");
+    private static final List<String> pathList = Arrays.asList("/stock/product/add", "/stock/category/add" , "/stock/category/update","/microservice/dashboard");
 
     //https://www.baeldung.com/spring-exclude-filter
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
+        boolean check = false;
 
-        boolean check = pathList.stream().anyMatch(path::startsWith);
-
-        if(path.startsWith("/stock/product/add") || path.startsWith("/stock/category/add")){
-            check = false;
+        if(pathList.stream().anyMatch(path::endsWith)){
+            check = true;
         }
 
         return check;
@@ -54,7 +53,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.getStatus();
             filterChain.doFilter(request, response);
             return;
         }
@@ -68,7 +66,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        response.getStatus();
+
+
+
 
         //fetch :almak , gidip getirmek
 

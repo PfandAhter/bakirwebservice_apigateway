@@ -76,4 +76,5 @@ public class StockServiceCallImpl implements IStockServiceCall, ServiceNameProvi
     public BaseResponse addComment (String productId , CommentAddRequest commentAddRequest){
         return stockServiceClient.addComment(productId,commentAddRequest);
     }
+
 }

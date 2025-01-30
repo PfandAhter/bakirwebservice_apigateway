@@ -1,5 +1,17 @@
 server:
   port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+
 spring:
   application:
     name: api-gateway
@@ -24,6 +36,9 @@ spring:
 
 client:
   feign:
+    security-service:
+      path: http://localhost:8099/security
+
     token-service:
       path: http://localhost:8079/token
       extractUsername: /extract/username
@@ -39,6 +54,8 @@ client:
       ready: /registerservice/ready
       stopped: /registerservice/stopped
       dashboard: /microservices/dashboard
+      check: /microservices/check
+      list: /microservices/list
 
     user-service:
       path: http://localhost:8082/user
@@ -46,7 +63,7 @@ client:
       getBalance: /balance/getbalance
       addAddressInfo: /address/add
       emailValidate: /activate
-      activateSellerByAdmin: /activate/seller
+      activateSellerByAdmin: /seller/activate
       getSellers: /seller/get
       addPhoto: /photo/add
       getPhoto: /photo/get
@@ -62,10 +79,10 @@ client:
     auth-service:
       path: http://localhost:8081/auth
       login: /login
-      register: /register
+      register: /register/user
       passwordChange: /password/change
       logoutUser: /logout
-      registerSellerRequest: /register-seller
+      registerSellerRequest: /register/seller
       passwordForget: /password/forget
       passwordChangeWithCode: /password/change-with-code
 
@@ -146,8 +163,8 @@ app:
 
         auth-service:
           authUser: /login
-          registerUser: /register
-          registerSeller: /register-seller
+          registerUser: /register/user
+          registerSeller: /register/seller
           passwordForget: /password/forget
           passwordChangeWithCode: /password/change-with-code
 

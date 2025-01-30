@@ -19,8 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.client.RestTemplate;
-
 
 @Configuration
 @EnableWebSecurity
@@ -46,6 +44,7 @@ public class ApplicationConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public UserDetailsService userDetailsService() {
         try {
@@ -54,11 +53,6 @@ public class ApplicationConfiguration {
             log.warn(UsernameNotFoundException.class.getName());
             throw new UsernameNotFoundException(Constants.USER_NOT_FOUND);
         }
-    }
-
-    @Bean
-    public RestTemplate restTemplate (){
-        return new RestTemplate();
     }
 
     @Bean

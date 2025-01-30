@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 @Setter
 public class BaseRequest {
 
+    //TODO Requestlerin iclerine anotasyonlar ile on kontrol ekle...
+
     @JsonIgnore
     private LocalDateTime time = LocalDateTime.now();
 
     private String token;
 
-    private Role role;
+//    private Role role;
 
-    private String servicePassCode;
+//    private String servicePassCode;
 }

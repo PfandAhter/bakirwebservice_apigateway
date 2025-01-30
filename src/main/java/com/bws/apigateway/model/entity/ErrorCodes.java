@@ -16,20 +16,14 @@ import lombok.Setter;
 public class ErrorCodes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "error")
     private String error;
 
-    @Column(name = "error_code")
-    private Long error_code;
-
-    @Column(name = "checked")
-    private int checked;
-
-    @Column(name = "error_description")
-    private String error_description;
+    @Column(name = "description")
+    private String description;
 
 }

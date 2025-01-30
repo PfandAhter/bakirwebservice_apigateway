@@ -42,6 +42,8 @@ public class SecurityConfiguration {
 //        httpSecurity.csrf().disable().authorizeHttpRequests().requestMatchers("/notlocked/**").hasRole(Role.ADMIN.toString());
 
         //TODO burayi bi kontrol et bakalim
+        //TODO Burada .permitAll().anyRequest().hasAnyAuthority(Role.ADMIN.toString()) kisimlari eklendi hata olusturursa cikartilabilir...
+
 
         //burada rol kisimlari eklendi hata olusturursa cikartilabilir...
 
@@ -52,14 +54,16 @@ public class SecurityConfiguration {
                         .permitAll()
                         .requestMatchers("/user/**") //.hasRole("USER")
                         .permitAll()
+//                        .anyRequest()
+//                        .hasAnyAuthority(Role.ADMIN.toString())
                         .requestMatchers("/stock/product/add")
-                        .authenticated()// MUST HAVE SELLER ROLE
+                        .permitAll()// MUST HAVE SELLER ROLE
                         .requestMatchers("/stock/category/update")
-                        .authenticated()// MUST HAVE SELLER ROLE
+                        .permitAll()// MUST HAVE SELLER ROLE
                         .requestMatchers("/microservice/dashboard")
-                        .authenticated() // MUST HAVE ADMIN ROLE...
+                        .permitAll() // MUST HAVE ADMIN ROLE...
                         .requestMatchers("/stock/**")
-                        .authenticated()
+                        .permitAll()
                         .requestMatchers("/payment/**")
                         .permitAll()
                         .anyRequest()

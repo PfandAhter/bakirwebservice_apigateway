@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+
 @Component
 @RequiredArgsConstructor
 @WebFilter(filterName = "RequestCachingFilter", urlPatterns = "/notlocked/*")
@@ -31,15 +32,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     //https://www.baeldung.com/spring-exclude-filter
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    //if the request is not in the pathList, then the filter will be applied
+    //@SneakyThrows
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException{
         String path = request.getRequestURI();
-        boolean check = false;
+        boolean check = true;
 
-        if(pathList.stream().anyMatch(path::endsWith)){
-            check = true;
-        }
+        return true;
 
-        return check;
+        /*if(pathList.stream().anyMatch(path::endsWith)){
+            check = false;
+        }*/
+
+        //return check;
+
     }
 
     @Override
